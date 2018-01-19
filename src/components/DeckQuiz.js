@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { clearLocalNotifications, setLocalNotification } from '../utils/helpers';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import { QuizView } from './QuizView';
 import { Result } from './Result';
 
@@ -15,7 +15,7 @@ class DeckQuiz extends Component {
 
   moveToNextQuestionOrExit = () => {
     const totalQuestions = this.props.navigation.state.params.deck.questions.length;
-    this.setState({ questionID: state.questionID + 1 });
+    this.setState({ questionID: this.state.questionID + 1 });
 
     if (this.state.questionID >= (totalQuestions - 1)) {
       clearLocalNotifications().then(setLocalNotification)
