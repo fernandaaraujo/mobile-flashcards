@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavigationActions } from 'react-navigation';
 import { Button, Text, StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { addCard, getDecks } from '../utils/api';
 import { Input } from './Input';
@@ -13,6 +14,24 @@ class NewQuestion extends Component {
     };
   }
 
+
+  createDeck = () => {
+    saveDeck(this.state.text).then((newDeck) => {
+      const resetAction = NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+          NavigationActions.navigate({
+            routeName: 'DeckView',
+            params: { deck: newDeck }
+          })
+        ]
+       })
+
+      this.props.navigation.dispatch(resetAction);
+     });
+   }
+
   createCard = () => {
     const { question, answer, decks } = this.state;
     const { title } = this.props.navigation.state.params.deck;
@@ -25,8 +44,20 @@ class NewQuestion extends Component {
 
     addCard(title, card).then(() => {
       getDecks().then((decks) => {
+        const resetAction = NavigationActions.reset({
+          index: 1,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Home' }),
+            NavigationActions.navigate({
+              routeName: 'DeckView',
+              params: { deck: decks[title] }
+            })
+          ]
+         })
+
        this.setState({ question: '', answer: '' });
-       this.props.navigation.navigate('DeckView', { deck: decks[title] });
+       this.props.navigation.dispatch(resetAction);
+       // this.props.navigation.navigate('DeckView', { deck: decks[title] });
       });
     });
   }
