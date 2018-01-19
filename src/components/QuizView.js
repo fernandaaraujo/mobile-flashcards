@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Button, Text, View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-export const QuizView = ({ actualQuestion, totalQuestions, questionID, correctAnswer }) => {
+export const QuizView = ({ actualQuestion, totalQuestions, questionID, correctAnswer, showAnswer, isShowing }) => {
     return (
       <View style={{ flex: 1 }}>
         <Text style={styles.questionCounter}>
@@ -15,27 +15,37 @@ export const QuizView = ({ actualQuestion, totalQuestions, questionID, correctAn
           <Text style={styles.text}>
             {actualQuestion.question}
           </Text>
-          <Text style={styles.title}>
-            Answer:
-          </Text>
-          <Text style={styles.text}>
-            {actualQuestion.answer}
-          </Text>
-        </View>
-        <View style={styles.answerButton}>
-          <Icon
-            iconStyle={{ fontSize: 50 }}
-            name='thumbs-o-up'
-            type='font-awesome'
-            onPress={() => correctAnswer(true)}
-          />
-          <Icon
-            iconStyle={{ fontSize: 50 }}
-            name='thumbs-o-down'
-            type='font-awesome'
-            onPress={() => correctAnswer(false)}
+          <Button
+            title='Show answer'
+            onPress={() => showAnswer()}
           />
         </View>
+        { isShowing && (
+          <View>
+            <Text style={styles.title}>
+              Answer:
+            </Text>
+            <Text style={styles.text}>
+              {actualQuestion.answer}
+            </Text>
+          </View>
+        )}
+        { isShowing && (
+          <View style={styles.answerButton}>
+            <Icon
+              iconStyle={{ fontSize: 50 }}
+              name='thumbs-o-up'
+              type='font-awesome'
+              onPress={() => correctAnswer(true)}
+            />
+            <Icon
+              iconStyle={{ fontSize: 50 }}
+              name='thumbs-o-down'
+              type='font-awesome'
+              onPress={() => correctAnswer(false)}
+            />
+          </View>
+        )}
       </View>
     )
 }

@@ -9,7 +9,8 @@ class DeckQuiz extends Component {
     super(props);
     this.state = {
       questionID: 0,
-      answers: {}
+      answers: {},
+      showAnswer: false
     };
   }
 
@@ -18,7 +19,7 @@ class DeckQuiz extends Component {
     this.setState({ questionID: this.state.questionID + 1 });
 
     if (this.state.questionID >= (totalQuestions - 1)) {
-      clearLocalNotifications().then(setLocalNotification)
+      clearLocalNotification().then(setLocalNotification)
     }
   }
 
@@ -30,6 +31,12 @@ class DeckQuiz extends Component {
       }
     }))
     this.moveToNextQuestionOrExit();
+  }
+
+  showQuestionAnswer = () => {
+    this.setState({
+      showAnswer: !this.state.showAnswer
+    });
   }
 
   render() {
@@ -45,6 +52,8 @@ class DeckQuiz extends Component {
             questionID={questionID}
             totalQuestions={deck.questions.length}
             correctAnswer={this.correctAnswer}
+            showAnswer={this.showQuestionAnswer}
+            isShowing={this.state.showAnswer}
           /> :
           <Result
             answers={answers}

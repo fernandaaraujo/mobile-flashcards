@@ -112,25 +112,3 @@ const styles = StyleSheet.create({
 });
 
 export default ListDecks;
-
-  // static navigationOptions = () => ({
-  //     headerRight: <Button
-  //         title="Clear All"
-  //         onPress={() => Alert.alert(
-  //           'Clear all',
-  //           'This will delete all decks. Are you sure?',
-  //           [
-  //             { text: 'Yes',
-  //               onPress: {() =>
-  //                 clearDecks().then(() =>
-  //                   this.setState({ decks: {} }))
-  //               }
-  //             },
-  //             { text: 'Cancel',
-  //               onPress: () => console.log('Cancel Pressed'), style: 'cancel'
-  //             }
-  //           ],
-  //           { cancelable: false }
-  //         )}
-  //     />
-  // });
